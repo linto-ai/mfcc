@@ -42,7 +42,7 @@ double safe_log(double value){
 /// Class to extract MFCC features from a signal.
 /// 
 /// There are 2 ways to use this class:
-/// - Use the static method mfcc() to extract features from a signal.
+/// - Use the static method mfccFeats() to extract features from a signal.
 /// - Intantiate MFCC to process frames on the go with processFrame() or processFrames().
 /// 
 /// MFCC are generated on each windows by: 

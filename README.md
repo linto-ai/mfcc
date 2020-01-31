@@ -1,4 +1,4 @@
-![version](https://img.shields.io/github/manifest-json/v/lokhozt/dartMFCC) ![pub-version](https://img.shields.io/pub/v/mfcc)
+![version](https://img.shields.io/github/manifest-json/v/lokhozt/mfcc) ![pub-version](https://img.shields.io/pub/v/mfcc)
 
 A library to extract Mel-Frequency Cepstral Coefficients (MFCCs) from a signal.
 
@@ -23,10 +23,10 @@ main() {
 ```
 
 ## Documentation
-Package documentation is available [here](). Generated using dartdoc. 
+Package documentation is available [here](https://pub.dev/documentation/mfcc/latest/mfcc/mfcc-library.html). Generated using dartdoc. 
 
 ## Features and bugs
 
-Please file feature requests and bugs at the [issue tracker](https://github.com/Lokhozt/dartMFCC/issues).
+Please file feature requests and bugs at the [issue tracker](https://github.com/Lokhozt/mfcc/issues).
 
 

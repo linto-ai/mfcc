@@ -1,8 +1,7 @@
 name: mfcc
 version: 1.0.0
-homepage: https://github.com/Lokhozt/dartMFCC
+homepage: https://github.com/Lokhozt/mfcc
 description: A library written in Dart to extract Mel-Frequency Cepstral Coefficients (MFCCs) from a signal.
-author: Linagora rbaraglia <rbaraglia@linagora.com>
 
 environment:
   sdk: '>=2.5.0 <3.0.0'
