@@ -4,26 +4,28 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="generator" content="made with love by dartdoc 0.29.1">
+  <meta name="generator" content="made with love by dartdoc 0.32.1">
   <meta name="description" content="mfcc API docs, for the Dart programming language.">
   <title>mfcc - Dart API docs</title>
 
+  
   <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500,400i,400,300|Source+Sans+Pro:400,300,700" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="static-assets/github.css">
   <link rel="stylesheet" href="static-assets/styles.css">
   <link rel="icon" href="static-assets/favicon.png">
-  <!-- header placeholder -->
+
 </head>
 
-<body>
+<body data-base-href=""
+      data-using-base-href="false">
 
 <div id="overlay-under-drawer"></div>
 
 <header id="title">
   <button id="sidenav-left-toggle" type="button">&nbsp;</button>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
-    <li><a href="https://github.com/Lokhozt/dartMFCC">mfcc package</a></li>
+    <li><a href="https://github.com/Lokhozt/mfcc">mfcc package</a></li>
   </ol>
   <div class="self-name">mfcc</div>
   <form class="search navbar-right" role="search">
@@ -41,7 +43,7 @@
     </header>
     
     <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
-      <li><a href="https://github.com/Lokhozt/dartMFCC">mfcc package</a></li>
+      <li><a href="https://github.com/Lokhozt/mfcc">mfcc package</a></li>
     </ol>
     
     <h5 class="hidden-xs"><span class="package-name">mfcc</span> <span class="package-kind">package</span></h5>
@@ -53,28 +55,62 @@
 
   <div id="dartdoc-main-content" class="col-xs-12 col-sm-9 col-md-8 main-content">
       <section class="desc markdown">
-        <p><img src="https://img.shields.io/github/manifest-json/v/lokhozt/dartMFCC" alt="version"> <img src="https://img.shields.io/pub/v/mfcc" alt="pub-version"></p>
+        <p><img src="https://img.shields.io/github/manifest-json/v/lokhozt/mfcc" alt="version"> <img src="https://img.shields.io/pub/v/mfcc" alt="pub-version"></p>
 <p>A library to extract Mel-Frequency Cepstral Coefficients (MFCCs) from a signal.</p>
 <h2 id="usage">Usage</h2>
 <p>A simple usage example:</p>
 <pre class="language-dart"><code class="language-dart">import 'package:mfcc/mfcc.dart';
 
-main() {
+void main() {
   var sampleRate = 16000;
   var windowLength = 1024;
   var windowStride = 512;
   var fftSize = 512;
   var numFilter = 20;
   var numCoefs = 13;
-  List&lt;num&gt; mySignal = // ...
+  List&lt;double&gt; mySignal = // ...
   var features = MFCC.mfccFeats(mySignal, sampleRate, windowLength, windowStride, fftSize, numFilter, numCoefs);
   
 }
 </code></pre>
+<p>Streaming usage exemple:</p>
+<pre class="language-dart"><code class="language-dart">import 'package:mfcc/mfcc.dart';
+import 'dart:async';
+
+void main() {
+  var sampleRate = 16000;
+  var windowLength = 1024;
+  var windowStride = 512;
+  var fftSize = 512;
+  var numFilter = 20;
+  var numCoefs = 13;
+
+  var mfcc_proc = MFCC(sampleRate, fftSize, numFilter, numCoefs, energy: false, preEmphasis: 0.97);
+  
+  StreamController&lt;List&lt;double&gt;&gt; audioInput = StreamController&lt;List&lt;double&gt;&gt;(); // Stream on which the audio frame are pushed
+
+  StreamController&lt;List&lt;double&gt;&gt; featureStreamCtrl = mfcc_proc.setStream(audioInput.stream); // Feature stream controller. 
+
+  StreamSubscription&lt;List&lt;double&gt;&gt; featureSub = featureStreamCtrl.stream.listen((features) { // Feature stream subscription.
+    doSomething(features); 
+  })
+
+  List&lt;double&gt; myFrame = ... // frame of length [windowLength]
+
+  audioInput.add(myFrame);
+
+  // doSomething is called with extracted features. 
+
+  mfcc_proc.cancelStream();
+  featureSub.cancel();
+}
+</code></pre>
 <h2 id="documentation">Documentation</h2>
-<p>Package documentation is available <a href="">here</a>. Generated using dartdoc. </p>
+<p>Package documentation is available <a href="https://pub.dev/documentation/mfcc/latest/mfcc/mfcc-library.html">here</a>. Generated using dartdoc. </p>
 <h2 id="features-and-bugs">Features and bugs</h2>
-<p>Please file feature requests and bugs at the <a href="https://github.com/Lokhozt/dartMFCC/issues">issue tracker</a>.</p>
+<p>Please file feature requests and bugs at the <a href="https://github.com/Lokhozt/mfcc/issues">issue tracker</a>.</p>
+<h2 id="licence">LICENCE</h2>
+<p>This project is under aGPLv3 licence, feel free to use and modify the code under those terms. See LICENCE.</p>
       </section>
       
         <section class="summary">
@@ -84,8 +120,9 @@ main() {
               <span class="name"><a href="mfcc/mfcc-library.html">mfcc</a></span>             
             </dt>
             <dd>
-              
-            </dd>          </dl>
+               
+            </dd>
+          </dl>
         </section>
 
   </div> <!-- /.main-content -->
@@ -98,10 +135,9 @@ main() {
 <footer>
   <span class="no-break">
     mfcc
-      1.0.0
+      1.1.0
   </span>
 
-  <!-- footer-text placeholder -->
 </footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -109,7 +145,7 @@ main() {
 <script src="static-assets/highlight.pack.js"></script>
 <script src="static-assets/URI.js"></script>
 <script src="static-assets/script.js"></script>
-<!-- footer placeholder -->
+
 
 </body>
 

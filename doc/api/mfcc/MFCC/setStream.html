@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the preEmphasis method from the MFCC class, for the Dart programming language.">
-  <title>preEmphasis method - MFCC class - mfcc library - Dart API</title>
+  <meta name="description" content="API docs for the setStream method from the MFCC class, for the Dart programming language.">
+  <title>setStream method - MFCC class - mfcc library - Dart API</title>
 
   
   <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500,400i,400,300|Source+Sans+Pro:400,300,700" rel="stylesheet">
@@ -27,9 +27,9 @@
     <li><a href="../../index.html">mfcc</a></li>
     <li><a href="../../mfcc/mfcc-library.html">mfcc</a></li>
     <li><a href="../../mfcc/MFCC-class.html">MFCC</a></li>
-    <li class="self-crumb">preEmphasis method</li>
+    <li class="self-crumb">setStream method</li>
   </ol>
-  <div class="self-name">preEmphasis</div>
+  <div class="self-name">setStream</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -48,7 +48,7 @@
       <li><a href="../../index.html">mfcc</a></li>
       <li><a href="../../mfcc/mfcc-library.html">mfcc</a></li>
       <li><a href="../../mfcc/MFCC-class.html">MFCC</a></li>
-      <li class="self-crumb">preEmphasis method</li>
+      <li class="self-crumb">setStream method</li>
     </ol>
     
     <h5>MFCC class</h5>
@@ -90,30 +90,30 @@
   </div><!--/.sidebar-offcanvas-->
 
   <div id="dartdoc-main-content" class="col-xs-12 col-sm-9 col-md-8 main-content">
-      <div><h1><span class="kind-method">preEmphasis</span> method </h1></div>
+      <div><h1><span class="kind-method">setStream</span> method </h1></div>
 
     <section class="multi-line-signature">
-      <span class="returntype"><a href="https://api.dart.dev/stable/2.9.2/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/2.9.2/dart-core/double-class.html">double</a></span>&gt;</span></span>
-            <span class="name ">preEmphasis</span>
-(<wbr><ol class="parameter-list"><li><span class="parameter" id="preEmphasis-param-signal"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.9.2/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/2.9.2/dart-core/num-class.html">num</a></span>&gt;</span></span> <span class="parameter-name">signal</span>, </span></li>
-<li><span class="parameter" id="preEmphasis-param-emphasisFactor"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.9.2/dart-core/double-class.html">double</a></span> <span class="parameter-name">emphasisFactor</span>, </span></li>
-<li><span class="parameter" id="preEmphasis-param-lastValue">{<span class="type-annotation"><a href="https://api.dart.dev/stable/2.9.2/dart-core/num-class.html">num</a></span> <span class="parameter-name">lastValue</span>: <span class="default-value">0.0</span>}</span></li>
+      <span class="returntype"><a href="https://api.dart.dev/stable/2.9.2/dart-async/StreamController-class.html">StreamController</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/2.9.2/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/2.9.2/dart-core/double-class.html">double</a></span>&gt;</span></span>&gt;</span></span>
+            <span class="name ">setStream</span>
+(<wbr><ol class="parameter-list"><li><span class="parameter" id="setStream-param-audioInput"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.9.2/dart-async/Stream-class.html">Stream</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/2.9.2/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/2.9.2/dart-core/num-class.html">num</a></span>&gt;</span></span>&gt;</span></span> <span class="parameter-name">audioInput</span></span></li>
 </ol>)
       
     </section>
     <section class="desc markdown">
-      <p>Apply preEmphasis filter on given signal.</p>
+      <p>Set input as Stream&lt;List<num>&gt;.
+Returns a StreamController&lt;List<double>&gt; on which features will be pushed.
+<code>audioInput</code> must provide frame of desired length.</double></num></p>
     </section>
     
     <section class="summary source-code" id="source">
       <h2><span>Implementation</span></h2>
-      <pre class="language-dart"><code class="language-dart">static List&lt;double&gt; preEmphasis(List&lt;num&gt; signal, double emphasisFactor, {num lastValue = 0.0})  {
-  var empSignal = List&lt;double&gt;(signal.length);
-  var swSig = [lastValue] + signal.sublist(0, signal.length - 1);
-  for (var i =0; i &lt; signal.length; i++) {
-    empSignal[i] = signal[i] - swSig[i] * emphasisFactor;
-  }
-  return empSignal;
+      <pre class="language-dart"><code class="language-dart">StreamController&lt;List&lt;double&gt;&gt; setStream(Stream&lt;List&lt;num&gt;&gt; audioInput) {
+  cancelStream();
+  _featureStream = StreamController&lt;List&lt;double&gt;&gt;.broadcast();
+  _audioInput = audioInput.listen((frame) {
+    _featureStream.add(process_frame(frame));
+  });
+  return _featureStream;
 }</code></pre>
     </section>
 

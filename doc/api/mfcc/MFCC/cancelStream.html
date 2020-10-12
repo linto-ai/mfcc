@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the preEmphasis method from the MFCC class, for the Dart programming language.">
-  <title>preEmphasis method - MFCC class - mfcc library - Dart API</title>
+  <meta name="description" content="API docs for the cancelStream method from the MFCC class, for the Dart programming language.">
+  <title>cancelStream method - MFCC class - mfcc library - Dart API</title>
 
   
   <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500,400i,400,300|Source+Sans+Pro:400,300,700" rel="stylesheet">
@@ -27,9 +27,9 @@
     <li><a href="../../index.html">mfcc</a></li>
     <li><a href="../../mfcc/mfcc-library.html">mfcc</a></li>
     <li><a href="../../mfcc/MFCC-class.html">MFCC</a></li>
-    <li class="self-crumb">preEmphasis method</li>
+    <li class="self-crumb">cancelStream method</li>
   </ol>
-  <div class="self-name">preEmphasis</div>
+  <div class="self-name">cancelStream</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -48,7 +48,7 @@
       <li><a href="../../index.html">mfcc</a></li>
       <li><a href="../../mfcc/mfcc-library.html">mfcc</a></li>
       <li><a href="../../mfcc/MFCC-class.html">MFCC</a></li>
-      <li class="self-crumb">preEmphasis method</li>
+      <li class="self-crumb">cancelStream method</li>
     </ol>
     
     <h5>MFCC class</h5>
@@ -90,30 +90,23 @@
   </div><!--/.sidebar-offcanvas-->
 
   <div id="dartdoc-main-content" class="col-xs-12 col-sm-9 col-md-8 main-content">
-      <div><h1><span class="kind-method">preEmphasis</span> method </h1></div>
+      <div><h1><span class="kind-method">cancelStream</span> method </h1></div>
 
     <section class="multi-line-signature">
-      <span class="returntype"><a href="https://api.dart.dev/stable/2.9.2/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/2.9.2/dart-core/double-class.html">double</a></span>&gt;</span></span>
-            <span class="name ">preEmphasis</span>
-(<wbr><ol class="parameter-list"><li><span class="parameter" id="preEmphasis-param-signal"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.9.2/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.dart.dev/stable/2.9.2/dart-core/num-class.html">num</a></span>&gt;</span></span> <span class="parameter-name">signal</span>, </span></li>
-<li><span class="parameter" id="preEmphasis-param-emphasisFactor"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.9.2/dart-core/double-class.html">double</a></span> <span class="parameter-name">emphasisFactor</span>, </span></li>
-<li><span class="parameter" id="preEmphasis-param-lastValue">{<span class="type-annotation"><a href="https://api.dart.dev/stable/2.9.2/dart-core/num-class.html">num</a></span> <span class="parameter-name">lastValue</span>: <span class="default-value">0.0</span>}</span></li>
-</ol>)
+      <span class="returntype">void</span>
+            <span class="name ">cancelStream</span>
+(<wbr>)
       
     </section>
     <section class="desc markdown">
-      <p>Apply preEmphasis filter on given signal.</p>
+      <p>Cancel streamSubscription and closes egress feature stream.</p>
     </section>
     
     <section class="summary source-code" id="source">
       <h2><span>Implementation</span></h2>
-      <pre class="language-dart"><code class="language-dart">static List&lt;double&gt; preEmphasis(List&lt;num&gt; signal, double emphasisFactor, {num lastValue = 0.0})  {
-  var empSignal = List&lt;double&gt;(signal.length);
-  var swSig = [lastValue] + signal.sublist(0, signal.length - 1);
-  for (var i =0; i &lt; signal.length; i++) {
-    empSignal[i] = signal[i] - swSig[i] * emphasisFactor;
-  }
-  return empSignal;
+      <pre class="language-dart"><code class="language-dart">void cancelStream() {
+  _audioInput?.cancel();
+  _featureStream?.close();
 }</code></pre>
     </section>
 
